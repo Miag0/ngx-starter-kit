@@ -1,6 +1,5 @@
+import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
-import { Inject } from '@angular/core';
-import { WINDOW } from '../services/window.token';
 
 export interface BeforeInstallPromptEvent extends Event {
   readonly platforms: string[]; // ["web", "android", "windows"]
@@ -44,6 +43,9 @@ export interface AppStateModel {
     installPrompt: null,
     installed: false,
   },
+})
+@Injectable({
+  providedIn: 'root',
 })
 export class AppState {
   constructor(/*@Inject(WINDOW) private readonly window: Window*/) {}

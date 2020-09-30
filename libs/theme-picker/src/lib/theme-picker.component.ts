@@ -1,14 +1,16 @@
-import { Component, ViewEncapsulation, ChangeDetectionStrategy, HostBinding, OnInit, OnDestroy } from '@angular/core';
-import { StyleManagerService } from './style-manager.service';
+import { ChangeDetectionStrategy, Component, HostBinding, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeTheme, PreferenceState, ThemeName, themes } from '@ngx-starter-kit/core';
 import { Select, Store } from '@ngxs/store';
-import { themes, PreferenceState, ThemeName, ChangeTheme } from '@ngx-starter-kit/core';
-import { untilDestroy } from '@ngx-starter-kit/ngx-utils';
+import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
+import { StyleManagerService } from './style-manager.service';
 
+@AutoUnsubscribe()
 @Component({
   selector: 'theme-picker',
   templateUrl: './theme-picker.component.html',
   styleUrls: ['./theme-picker.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  // tslint:disable-next-line: use-component-view-encapsulation
   encapsulation: ViewEncapsulation.None,
   // host: { 'aria-hidden': 'true' }
 })
@@ -26,7 +28,7 @@ export class ThemePickerComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // this.installTheme(this.store.selectSnapshot(PreferenceState.activeThemeName));
-    this.activeThemeName$.pipe(untilDestroy(this)).subscribe(themeName => {
+    this.activeThemeName$.subscribe((themeName) => {
       this.installTheme(themeName);
     });
   }

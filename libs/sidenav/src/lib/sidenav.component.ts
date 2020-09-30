@@ -1,28 +1,21 @@
-import {
-  Component,
-  OnInit,
-  ViewEncapsulation,
-  OnDestroy,
-  HostBinding,
-  ChangeDetectorRef,
-  HostListener,
-  Inject,
-} from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
-import { Observable, Subject, Subscription } from 'rxjs';
-
+import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { MenuItem, MenuService, SidenavState } from '@ngx-starter-kit/navigator';
-import { untilDestroy } from '@ngx-starter-kit/ngx-utils';
+import { Router } from '@angular/router';
 import { WINDOW } from '@ngx-starter-kit/core';
+import { MenuItem, MenuService } from '@ngx-starter-kit/navigator';
+import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
+import { Subject } from 'rxjs';
+
 // import { sidenavAnimation } from '@ngx-starter-kit/animations';
 
 /** @dynamic */
+@AutoUnsubscribe()
 @Component({
   selector: 'ngx-sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss'],
   // animations: [sidenavAnimation]
+  // tslint:disable-next-line: use-component-view-encapsulation
   encapsulation: ViewEncapsulation.None,
 })
 export class SidenavComponent implements OnInit, OnDestroy {
@@ -35,15 +28,15 @@ export class SidenavComponent implements OnInit, OnDestroy {
     private menuService: MenuService,
     private snackBar: MatSnackBar,
     private cd: ChangeDetectorRef,
-    @Inject(WINDOW) private window: Window,
+    @Inject(WINDOW) private window: Window
   ) {}
 
   ngOnInit() {
-    this.menuService.items$.pipe(untilDestroy(this)).subscribe((items: MenuItem[]) => {
+    this.menuService.items$.subscribe((items: MenuItem[]) => {
       this.items = items;
     });
 
-    // this.router.events.pipe(untilDestroy(this))
+    // this.router.events
     //   .subscribe(event => {
     //   if (event instanceof NavigationEnd) {
     //     this.menuService.setCurrentlyOpenByRoute(event.url);
@@ -72,7 +65,7 @@ export class SidenavComponent implements OnInit, OnDestroy {
       this.snackBar.open(
         'You activated Icon-Sidenav, move your mouse to the content and see what happens!',
         '',
-        snackBarConfig,
+        snackBarConfig
       );
     }
   }

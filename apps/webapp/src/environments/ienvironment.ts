@@ -1,4 +1,5 @@
-import { OidcProviderConfig } from '@ngx-starter-kit/oidc';
+// import { OidcProviderConfig } from '@ngx-starter-kit/oidc';
+import { ModuleWithProviders } from '@angular/core';
 
 export type LogLevel = 'debug' | 'info' | 'warn' | 'error';
 
@@ -10,6 +11,7 @@ export interface IEnvironment {
   // Enables use of ng.profiler.timeChangeDetection(); in browser console
   enableDebugTools?: boolean;
   logLevel?: LogLevel;
-  auth?: OidcProviderConfig;
+  // auth?: OidcProviderConfig;
   [key: string]: any;
+  plugins: ModuleWithProviders<any>[];
 }

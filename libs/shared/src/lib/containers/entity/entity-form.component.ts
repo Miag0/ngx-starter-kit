@@ -1,8 +1,9 @@
-import { Inject, OnInit } from '@angular/core';
+import { Inject, OnInit, Directive } from '@angular/core';
 import { Entity } from './entity.model';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormGroup } from '@angular/forms';
 
+@Directive()
 export abstract class EntityFormComponent<TEntity extends Entity> implements OnInit {
   title: string;
   entity: TEntity;
@@ -10,7 +11,7 @@ export abstract class EntityFormComponent<TEntity extends Entity> implements OnI
 
   constructor(
     @Inject(MAT_DIALOG_DATA) protected data: { title: string; payload: TEntity },
-    protected dialogRef: MatDialogRef<EntityFormComponent<TEntity>>,
+    protected dialogRef: MatDialogRef<EntityFormComponent<TEntity>>
   ) {
     this.title = data.title;
     this.entity = data.payload;

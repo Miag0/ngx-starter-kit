@@ -1,10 +1,10 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
   "cli": {
     "defaultCollection": "@nrwl/angular",
     "packageManager": "yarn",
     "warnings": {
-      "typescriptMismatch": false,
       "versionMismatch": false
     }
   },
@@ -16,7 +16,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "exclude": ["**/node_modules/**", "!libs/admin/**"],
+            "exclude": ["**/node_modules/**", "!libs/admin/**/*"],
             "tsConfig": ["libs/admin/tsconfig.lib.json", "libs/admin/tsconfig.spec.json"]
           }
         },
@@ -39,7 +39,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "exclude": ["**/node_modules/**", "!libs/animations/**"],
+            "exclude": ["**/node_modules/**", "!libs/animations/**/*"],
             "tsConfig": ["libs/animations/tsconfig.lib.json", "libs/animations/tsconfig.spec.json"]
           }
         },
@@ -105,7 +105,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "exclude": ["**/*.json", "**/node_modules/**", "!apps/api/**"],
+            "exclude": ["**/*.json", "**/node_modules/**", "!apps/api/**/*"],
             "tsConfig": ["apps/api/e2e/tsconfig.json", "apps/api/tsconfig.app.json", "apps/api/tsconfig.spec.json"]
           }
         },
@@ -154,7 +154,7 @@
     "app-confirm": {
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@nrwl/angular:package",
           "options": {
             "project": "libs/app-confirm/ng-package.json",
             "tsConfig": "libs/app-confirm/tsconfig.lib.json"
@@ -163,7 +163,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "exclude": ["**/node_modules/**", "!libs/app-confirm/**"],
+            "exclude": ["**/node_modules/**", "!libs/app-confirm/**/*"],
             "tsConfig": ["libs/app-confirm/tsconfig.lib.json", "libs/app-confirm/tsconfig.spec.json"]
           }
         },
@@ -173,6 +173,12 @@
             "jestConfig": "libs/app-confirm/jest.config.js",
             "setupFile": "libs/app-confirm/src/test-setup.ts",
             "tsConfig": "libs/app-confirm/tsconfig.spec.json"
+          }
+        },
+        "deploy": {
+          "builder": "ngx-deploy-npm:deploy",
+          "options": {
+            "access": "public"
           }
         }
       },
@@ -186,7 +192,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "exclude": ["**/node_modules/**", "!libs/auth/**"],
+            "exclude": ["**/node_modules/**", "!libs/auth/**/*"],
             "tsConfig": ["libs/auth/tsconfig.lib.json", "libs/auth/tsconfig.spec.json"]
           }
         },
@@ -229,7 +235,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "exclude": ["**/node_modules/**", "!apps/backend/**"],
+            "exclude": ["**/node_modules/**", "!apps/backend/**/*"],
             "tsConfig": ["apps/backend/tsconfig.app.json", "apps/backend/tsconfig.spec.json"]
           }
         },
@@ -256,7 +262,7 @@
     "breadcrumbs": {
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@nrwl/angular:package",
           "options": {
             "project": "libs/breadcrumbs/ng-package.json",
             "tsConfig": "libs/breadcrumbs/tsconfig.lib.json"
@@ -265,7 +271,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "exclude": ["**/node_modules/**", "!libs/breadcrumbs/**"],
+            "exclude": ["**/node_modules/**", "!libs/breadcrumbs/**/*"],
             "tsConfig": ["libs/breadcrumbs/tsconfig.lib.json", "libs/breadcrumbs/tsconfig.spec.json"]
           }
         },
@@ -275,6 +281,12 @@
             "jestConfig": "libs/breadcrumbs/jest.config.js",
             "setupFile": "libs/breadcrumbs/src/test-setup.ts",
             "tsConfig": "libs/breadcrumbs/tsconfig.spec.json"
+          }
+        },
+        "deploy": {
+          "builder": "ngx-deploy-npm:deploy",
+          "options": {
+            "access": "public"
           }
         }
       },
@@ -286,7 +298,7 @@
     "chat-box": {
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@nrwl/angular:package",
           "options": {
             "project": "libs/chat-box/ng-package.json",
             "tsConfig": "libs/chat-box/tsconfig.lib.json"
@@ -295,7 +307,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "exclude": ["**/node_modules/**", "!libs/chat-box/**"],
+            "exclude": ["**/node_modules/**", "!libs/chat-box/**/*"],
             "tsConfig": ["libs/chat-box/tsconfig.lib.json", "libs/chat-box/tsconfig.spec.json"]
           }
         },
@@ -305,6 +317,12 @@
             "jestConfig": "libs/chat-box/jest.config.js",
             "setupFile": "libs/chat-box/src/test-setup.ts",
             "tsConfig": "libs/chat-box/tsconfig.spec.json"
+          }
+        },
+        "deploy": {
+          "builder": "ngx-deploy-npm:deploy",
+          "options": {
+            "access": "public"
           }
         }
       },
@@ -316,7 +334,7 @@
     "clap": {
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@nrwl/angular:package",
           "options": {
             "project": "libs/clap/ng-package.json",
             "tsConfig": "libs/clap/tsconfig.lib.json"
@@ -325,7 +343,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "exclude": ["**/node_modules/**", "!libs/clap/**"],
+            "exclude": ["**/node_modules/**", "!libs/clap/**/*"],
             "tsConfig": ["libs/clap/tsconfig.lib.json", "libs/clap/tsconfig.spec.json"]
           }
         },
@@ -335,6 +353,12 @@
             "jestConfig": "libs/clap/jest.config.js",
             "setupFile": "libs/clap/src/test-setup.ts",
             "tsConfig": "libs/clap/tsconfig.spec.json"
+          }
+        },
+        "deploy": {
+          "builder": "ngx-deploy-npm:deploy",
+          "options": {
+            "access": "public"
           }
         }
       },
@@ -346,7 +370,7 @@
     "context-menu": {
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@nrwl/angular:package",
           "options": {
             "project": "libs/context-menu/ng-package.json",
             "tsConfig": "libs/context-menu/tsconfig.lib.json"
@@ -355,7 +379,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "exclude": ["**/node_modules/**", "!libs/context-menu/**"],
+            "exclude": ["**/node_modules/**", "!libs/context-menu/**/*"],
             "tsConfig": ["libs/context-menu/tsconfig.lib.json", "libs/context-menu/tsconfig.spec.json"]
           }
         },
@@ -365,6 +389,12 @@
             "jestConfig": "libs/context-menu/jest.config.js",
             "setupFile": "libs/context-menu/src/test-setup.ts",
             "tsConfig": "libs/context-menu/tsconfig.spec.json"
+          }
+        },
+        "deploy": {
+          "builder": "ngx-deploy-npm:deploy",
+          "options": {
+            "access": "public"
           }
         }
       },
@@ -378,7 +408,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "exclude": ["**/node_modules/**", "!libs/core/**"],
+            "exclude": ["**/node_modules/**", "!libs/core/**/*"],
             "tsConfig": ["libs/core/tsconfig.lib.json", "libs/core/tsconfig.spec.json"]
           }
         },
@@ -401,7 +431,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "exclude": ["**/node_modules/**", "!libs/dashboard/**"],
+            "exclude": ["**/node_modules/**", "!libs/dashboard/**/*"],
             "tsConfig": ["libs/dashboard/tsconfig.lib.json", "libs/dashboard/tsconfig.spec.json"]
           }
         },
@@ -422,7 +452,7 @@
     "draggable": {
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@nrwl/angular:package",
           "options": {
             "project": "libs/draggable/ng-package.json",
             "tsConfig": "libs/draggable/tsconfig.lib.json"
@@ -431,7 +461,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "exclude": ["**/node_modules/**", "!libs/draggable/**"],
+            "exclude": ["**/node_modules/**", "!libs/draggable/**/*"],
             "tsConfig": ["libs/draggable/tsconfig.lib.json", "libs/draggable/tsconfig.spec.json"]
           }
         },
@@ -441,6 +471,12 @@
             "jestConfig": "libs/draggable/jest.config.js",
             "setupFile": "libs/draggable/src/test-setup.ts",
             "tsConfig": "libs/draggable/tsconfig.spec.json"
+          }
+        },
+        "deploy": {
+          "builder": "ngx-deploy-npm:deploy",
+          "options": {
+            "access": "public"
           }
         }
       },
@@ -454,7 +490,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "exclude": ["**/node_modules/**", "!libs/experiments/**"],
+            "exclude": ["**/node_modules/**", "!libs/experiments/**/*"],
             "tsConfig": ["libs/experiments/tsconfig.lib.json", "libs/experiments/tsconfig.spec.json"]
           }
         },
@@ -477,7 +513,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "exclude": ["**/node_modules/**", "!libs/grid/**"],
+            "exclude": ["**/node_modules/**", "!libs/grid/**/*"],
             "tsConfig": ["libs/grid/tsconfig.lib.json", "libs/grid/tsconfig.spec.json"]
           }
         },
@@ -500,7 +536,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "exclude": ["**/*.json", "**/node_modules/**", "!libs/home/**"],
+            "exclude": ["**/*.json", "**/node_modules/**", "!libs/home/**/*"],
             "tsConfig": ["libs/home/tsconfig.lib.json", "libs/home/tsconfig.spec.json"]
           }
         },
@@ -521,7 +557,7 @@
     "image-comparison": {
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@nrwl/angular:package",
           "options": {
             "project": "libs/image-comparison/ng-package.json",
             "tsConfig": "libs/image-comparison/tsconfig.lib.json"
@@ -530,7 +566,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "exclude": ["**/node_modules/**", "!libs/image-comparison/**"],
+            "exclude": ["**/node_modules/**", "!libs/image-comparison/**/*"],
             "tsConfig": ["libs/image-comparison/tsconfig.lib.json", "libs/image-comparison/tsconfig.spec.json"]
           }
         },
@@ -540,6 +576,12 @@
             "jestConfig": "libs/image-comparison/jest.config.js",
             "setupFile": "libs/image-comparison/src/test-setup.ts",
             "tsConfig": "libs/image-comparison/tsconfig.spec.json"
+          }
+        },
+        "deploy": {
+          "builder": "ngx-deploy-npm:deploy",
+          "options": {
+            "access": "public"
           }
         }
       },
@@ -551,7 +593,7 @@
     "json-diff": {
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@nrwl/angular:package",
           "options": {
             "project": "libs/json-diff/ng-package.json",
             "tsConfig": "libs/json-diff/tsconfig.lib.json"
@@ -560,7 +602,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "exclude": ["**/node_modules/**", "!libs/json-diff/**"],
+            "exclude": ["**/node_modules/**", "!libs/json-diff/**/*"],
             "tsConfig": ["libs/json-diff/tsconfig.lib.json", "libs/json-diff/tsconfig.spec.json"]
           }
         },
@@ -570,6 +612,12 @@
             "jestConfig": "libs/json-diff/jest.config.js",
             "setupFile": "libs/json-diff/src/test-setup.ts",
             "tsConfig": "libs/json-diff/tsconfig.spec.json"
+          }
+        },
+        "deploy": {
+          "builder": "ngx-deploy-npm:deploy",
+          "options": {
+            "access": "public"
           }
         }
       },
@@ -581,7 +629,7 @@
     "led": {
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@nrwl/angular:package",
           "options": {
             "project": "libs/led/ng-package.json",
             "tsConfig": "libs/led/tsconfig.lib.json"
@@ -590,7 +638,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "exclude": ["**/node_modules/**", "!libs/led/**"],
+            "exclude": ["**/node_modules/**", "!libs/led/**/*"],
             "tsConfig": ["libs/led/tsconfig.lib.json", "libs/led/tsconfig.spec.json"]
           }
         },
@@ -600,6 +648,12 @@
             "jestConfig": "libs/led/jest.config.js",
             "setupFile": "libs/led/src/test-setup.ts",
             "tsConfig": "libs/led/tsconfig.spec.json"
+          }
+        },
+        "deploy": {
+          "builder": "ngx-deploy-npm:deploy",
+          "options": {
+            "access": "public"
           }
         }
       },
@@ -611,7 +665,7 @@
     "loading-overlay": {
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@nrwl/angular:package",
           "options": {
             "project": "libs/loading-overlay/ng-package.json",
             "tsConfig": "libs/loading-overlay/tsconfig.lib.json"
@@ -620,7 +674,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "exclude": ["**/node_modules/**", "!libs/loading-overlay/**"],
+            "exclude": ["**/node_modules/**", "!libs/loading-overlay/**/*"],
             "tsConfig": ["libs/loading-overlay/tsconfig.lib.json", "libs/loading-overlay/tsconfig.spec.json"]
           }
         },
@@ -630,6 +684,12 @@
             "jestConfig": "libs/loading-overlay/jest.config.js",
             "setupFile": "libs/loading-overlay/src/test-setup.ts",
             "tsConfig": "libs/loading-overlay/tsconfig.spec.json"
+          }
+        },
+        "deploy": {
+          "builder": "ngx-deploy-npm:deploy",
+          "options": {
+            "access": "public"
           }
         }
       },
@@ -643,7 +703,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "exclude": ["**/node_modules/**", "!libs/models/**"],
+            "exclude": ["**/node_modules/**", "!libs/models/**/*"],
             "tsConfig": ["libs/models/tsconfig.lib.json", "libs/models/tsconfig.spec.json"]
           }
         },
@@ -665,7 +725,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "exclude": ["**/node_modules/**", "!libs/navigator/**"],
+            "exclude": ["**/node_modules/**", "!libs/navigator/**/*"],
             "tsConfig": ["libs/navigator/tsconfig.lib.json", "libs/navigator/tsconfig.spec.json"]
           }
         },
@@ -675,6 +735,12 @@
             "jestConfig": "libs/navigator/jest.config.js",
             "setupFile": "libs/navigator/src/test-setup.ts",
             "tsConfig": "libs/navigator/tsconfig.spec.json"
+          }
+        },
+        "deploy": {
+          "builder": "ngx-deploy-npm:deploy",
+          "options": {
+            "access": "public"
           }
         }
       },
@@ -686,7 +752,7 @@
     "ngx-utils": {
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@nrwl/angular:package",
           "options": {
             "project": "libs/ngx-utils/ng-package.json",
             "tsConfig": "libs/ngx-utils/tsconfig.lib.json"
@@ -695,7 +761,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "exclude": ["**/node_modules/**", "!libs/ngx-utils/**"],
+            "exclude": ["**/node_modules/**", "!libs/ngx-utils/**/*"],
             "tsConfig": ["libs/ngx-utils/tsconfig.lib.json", "libs/ngx-utils/tsconfig.spec.json"]
           }
         },
@@ -705,6 +771,12 @@
             "jestConfig": "libs/ngx-utils/jest.config.js",
             "setupFile": "libs/ngx-utils/src/test-setup.ts",
             "tsConfig": "libs/ngx-utils/tsconfig.spec.json"
+          }
+        },
+        "deploy": {
+          "builder": "ngx-deploy-npm:deploy",
+          "options": {
+            "access": "public"
           }
         }
       },
@@ -718,7 +790,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "exclude": ["**/node_modules/**", "!libs/not-found/**"],
+            "exclude": ["**/node_modules/**", "!libs/not-found/**/*"],
             "tsConfig": ["libs/not-found/tsconfig.lib.json", "libs/not-found/tsconfig.spec.json"]
           }
         },
@@ -739,7 +811,7 @@
     "notifications": {
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@nrwl/angular:package",
           "options": {
             "project": "libs/notifications/ng-package.json",
             "tsConfig": "libs/notifications/tsconfig.lib.json"
@@ -748,7 +820,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "exclude": ["**/node_modules/**", "!libs/notifications/**"],
+            "exclude": ["**/node_modules/**", "!libs/notifications/**/*"],
             "tsConfig": ["libs/notifications/tsconfig.lib.json", "libs/notifications/tsconfig.spec.json"]
           }
         },
@@ -759,6 +831,12 @@
             "setupFile": "libs/notifications/src/test-setup.ts",
             "tsConfig": "libs/notifications/tsconfig.spec.json"
           }
+        },
+        "deploy": {
+          "builder": "ngx-deploy-npm:deploy",
+          "options": {
+            "access": "public"
+          }
         }
       },
       "prefix": "ngx",
@@ -766,42 +844,12 @@
       "root": "libs/notifications",
       "sourceRoot": "libs/notifications/src"
     },
-    "oidc": {
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "project": "libs/oidc/ng-package.json",
-            "tsConfig": "libs/oidc/tsconfig.lib.json"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "exclude": ["**/node_modules/**", "!libs/oidc/**"],
-            "tsConfig": ["libs/oidc/tsconfig.lib.json", "libs/oidc/tsconfig.spec.json"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/oidc/jest.config.js",
-            "setupFile": "libs/oidc/src/test-setup.ts",
-            "tsConfig": "libs/oidc/tsconfig.spec.json"
-          }
-        }
-      },
-      "prefix": "ngx",
-      "projectType": "library",
-      "root": "libs/oidc",
-      "sourceRoot": "libs/oidc/src"
-    },
     "quickpanel": {
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "exclude": ["**/node_modules/**", "!libs/quickpanel/**"],
+            "exclude": ["**/node_modules/**", "!libs/quickpanel/**/*"],
             "tsConfig": ["libs/quickpanel/tsconfig.lib.json", "libs/quickpanel/tsconfig.spec.json"]
           }
         },
@@ -822,7 +870,7 @@
     "scroll-to-top": {
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@nrwl/angular:package",
           "options": {
             "project": "libs/scroll-to-top/ng-package.json",
             "tsConfig": "libs/scroll-to-top/tsconfig.lib.json"
@@ -831,7 +879,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "exclude": ["**/node_modules/**", "!libs/scroll-to-top/**"],
+            "exclude": ["**/node_modules/**", "!libs/scroll-to-top/**/*"],
             "tsConfig": ["libs/scroll-to-top/tsconfig.lib.json", "libs/scroll-to-top/tsconfig.spec.json"]
           }
         },
@@ -841,6 +889,12 @@
             "jestConfig": "libs/scroll-to-top/jest.config.js",
             "setupFile": "libs/scroll-to-top/src/test-setup.ts",
             "tsConfig": "libs/scroll-to-top/tsconfig.spec.json"
+          }
+        },
+        "deploy": {
+          "builder": "ngx-deploy-npm:deploy",
+          "options": {
+            "access": "public"
           }
         }
       },
@@ -852,7 +906,7 @@
     "scrollbar": {
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@nrwl/angular:package",
           "options": {
             "project": "libs/scrollbar/ng-package.json",
             "tsConfig": "libs/scrollbar/tsconfig.lib.json"
@@ -861,7 +915,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "exclude": ["**/node_modules/**", "!libs/scrollbar/**"],
+            "exclude": ["**/node_modules/**", "!libs/scrollbar/**/*"],
             "tsConfig": ["libs/scrollbar/tsconfig.lib.json", "libs/scrollbar/tsconfig.spec.json"]
           }
         },
@@ -871,6 +925,12 @@
             "jestConfig": "libs/scrollbar/jest.config.js",
             "setupFile": "libs/scrollbar/src/test-setup.ts",
             "tsConfig": "libs/scrollbar/tsconfig.spec.json"
+          }
+        },
+        "deploy": {
+          "builder": "ngx-deploy-npm:deploy",
+          "options": {
+            "access": "public"
           }
         }
       },
@@ -884,7 +944,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "exclude": ["**/node_modules/**", "!libs/shared/**"],
+            "exclude": ["**/node_modules/**", "!libs/shared/**/*"],
             "tsConfig": ["libs/shared/tsconfig.lib.json", "libs/shared/tsconfig.spec.json"]
           }
         },
@@ -907,7 +967,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "exclude": ["**/node_modules/**", "!libs/sidenav/**"],
+            "exclude": ["**/node_modules/**", "!libs/sidenav/**/*"],
             "tsConfig": ["libs/sidenav/tsconfig.lib.json", "libs/sidenav/tsconfig.spec.json"]
           }
         },
@@ -928,7 +988,7 @@
     "socketio-plugin": {
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@nrwl/angular:package",
           "options": {
             "project": "libs/socketio-plugin/ng-package.json",
             "tsConfig": "libs/socketio-plugin/tsconfig.lib.json"
@@ -937,7 +997,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "exclude": ["**/node_modules/**", "!libs/socketio-plugin/**"],
+            "exclude": ["**/node_modules/**", "!libs/socketio-plugin/**/*"],
             "tsConfig": ["libs/socketio-plugin/tsconfig.lib.json", "libs/socketio-plugin/tsconfig.spec.json"]
           }
         },
@@ -947,6 +1007,12 @@
             "jestConfig": "libs/socketio-plugin/jest.config.js",
             "setupFile": "libs/socketio-plugin/src/test-setup.ts",
             "tsConfig": "libs/socketio-plugin/tsconfig.spec.json"
+          }
+        },
+        "deploy": {
+          "builder": "ngx-deploy-npm:deploy",
+          "options": {
+            "access": "public"
           }
         }
       },
@@ -958,7 +1024,7 @@
     "svg-viewer": {
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@nrwl/angular:package",
           "options": {
             "project": "libs/svg-viewer/ng-package.json",
             "tsConfig": "libs/svg-viewer/tsconfig.lib.json"
@@ -967,7 +1033,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "exclude": ["**/node_modules/**", "!libs/svg-viewer/**"],
+            "exclude": ["**/node_modules/**", "!libs/svg-viewer/**/*"],
             "tsConfig": ["libs/svg-viewer/tsconfig.lib.json", "libs/svg-viewer/tsconfig.spec.json"]
           }
         },
@@ -977,6 +1043,12 @@
             "jestConfig": "libs/svg-viewer/jest.config.js",
             "setupFile": "libs/svg-viewer/src/test-setup.ts",
             "tsConfig": "libs/svg-viewer/tsconfig.spec.json"
+          }
+        },
+        "deploy": {
+          "builder": "ngx-deploy-npm:deploy",
+          "options": {
+            "access": "public"
           }
         }
       },
@@ -988,7 +1060,7 @@
     "theme-picker": {
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@nrwl/angular:package",
           "options": {
             "project": "libs/theme-picker/ng-package.json",
             "tsConfig": "libs/theme-picker/tsconfig.lib.json"
@@ -997,7 +1069,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "exclude": ["**/node_modules/**", "!libs/theme-picker/**"],
+            "exclude": ["**/node_modules/**", "!libs/theme-picker/**/*"],
             "tsConfig": ["libs/theme-picker/tsconfig.lib.json", "libs/theme-picker/tsconfig.spec.json"]
           }
         },
@@ -1007,6 +1079,12 @@
             "jestConfig": "libs/theme-picker/jest.config.js",
             "setupFile": "libs/theme-picker/src/test-setup.ts",
             "tsConfig": "libs/theme-picker/tsconfig.spec.json"
+          }
+        },
+        "deploy": {
+          "builder": "ngx-deploy-npm:deploy",
+          "options": {
+            "access": "public"
           }
         }
       },
@@ -1020,7 +1098,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "exclude": ["**/node_modules/**", "!libs/toolbar/**"],
+            "exclude": ["**/node_modules/**", "!libs/toolbar/**/*"],
             "tsConfig": ["libs/toolbar/tsconfig.lib.json", "libs/toolbar/tsconfig.spec.json"]
           }
         },
@@ -1043,7 +1121,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "exclude": ["**/node_modules/**", "!libs/tree/**"],
+            "exclude": ["**/node_modules/**", "!libs/tree/**/*"],
             "tsConfig": ["libs/tree/tsconfig.lib.json", "libs/tree/tsconfig.spec.json"]
           }
         },
@@ -1052,6 +1130,12 @@
           "options": {
             "jestConfig": "libs/tree/jest.config.js",
             "tsConfig": "libs/tree/tsconfig.spec.json"
+          }
+        },
+        "deploy": {
+          "builder": "ngx-deploy-npm:deploy",
+          "options": {
+            "access": "public"
           }
         }
       },
@@ -1065,7 +1149,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "exclude": ["**/node_modules/**", "!libs/utils/**"],
+            "exclude": ["**/node_modules/**", "!libs/utils/**/*"],
             "tsConfig": ["libs/utils/tsconfig.lib.json", "libs/utils/tsconfig.spec.json"]
           }
         },
@@ -1074,6 +1158,12 @@
           "options": {
             "jestConfig": "libs/utils/jest.config.js",
             "tsConfig": "libs/utils/tsconfig.spec.json"
+          }
+        },
+        "deploy": {
+          "builder": "ngx-deploy-npm:deploy",
+          "options": {
+            "access": "public"
           }
         }
       },
@@ -1090,6 +1180,12 @@
             "mock": {
               "aot": true,
               "baseHref": "/ngx-starter-kit/",
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "buildOptimizer": true,
               "extractCss": true,
               "extractLicenses": true,
@@ -1163,6 +1259,10 @@
                   "maximumWarning": "10%",
                   "name": "main",
                   "type": "bundle"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ],
               "buildOptimizer": true,
@@ -1187,11 +1287,18 @@
               "vendorChunk": false
             },
             "serve": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "extractCss": true,
               "preserveSymlinks": true
             }
           },
           "options": {
+            "aot": true,
             "assets": [
               "apps/webapp/src/assets",
               "apps/webapp/src/favicon.ico",
@@ -1242,7 +1349,7 @@
           "options": {
             "cypressConfig": "apps/webapp/e2e/cypress.json",
             "devServerTarget": "webapp:serve",
-            "tsConfig": "apps/webapp/e2e/tsconfig.json"
+            "tsConfig": "apps/webapp/e2e/tsconfig.e2e.json"
           }
         },
         "extract-i18n": {
@@ -1254,7 +1361,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "exclude": ["**/*.json", "**/node_modules/**", "!apps/webapp/**"],
+            "exclude": ["**/*.json", "**/node_modules/**", "!apps/webapp/**/*"],
             "tsConfig": [
               "apps/webapp/e2e/tsconfig.json",
               "apps/webapp/tsconfig.app.json",
@@ -1291,6 +1398,25 @@
             "baseHref": "/ngx-starter-kit/",
             "configuration": "mock"
           }
+        },
+        "compodoc": {
+          "builder": "@twittwer/compodoc:compodoc",
+          "options": {
+            "tsConfig": "apps/webapp/tsconfig.compodoc.json",
+            "outputPath": "dist/compodoc/webapp",
+            "workspaceDocs": true
+          },
+          "configurations": {
+            "json": {
+              "exportFormat": "json"
+            }
+          }
+        },
+        "analyze": {
+          "builder": "@ngx-builders/analyze:analyze",
+          "options": {
+            "outputPath": "dist/apps/webapp"
+          }
         }
       },
       "prefix": "ngx",
@@ -1303,7 +1429,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "exclude": ["**/node_modules/**", "!libs/widgets/**"],
+            "exclude": ["**/node_modules/**", "!libs/widgets/**/*"],
             "tsConfig": ["libs/widgets/tsconfig.lib.json", "libs/widgets/tsconfig.spec.json"]
           }
         },
@@ -1337,6 +1463,5 @@
     "@nrwl/angular:library": {
       "unitTestRunner": "jest"
     }
-  },
-  "version": 1
+  }
 }

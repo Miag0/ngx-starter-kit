@@ -1,10 +1,10 @@
 import { All, Controller, Get, HttpService, Req } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
-import { ConfigService } from './config';
-import { Allow } from './auth';
+import * as https from 'https';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import * as https from 'https';
+import { Allow } from './auth';
+import { ConfigService } from './config';
 
 const url = 'https://httpbin.org/anything';
 const httpsAgent = new https.Agent({
@@ -15,7 +15,7 @@ const httpsAgent = new https.Agent({
 export class AppController {
   constructor(private readonly config: ConfigService, private readonly http: HttpService) {}
 
-  @ApiOperation({ title: 'Welcome' })
+  @ApiOperation({ summary: 'Welcome' })
   @Allow()
   @Get()
   root(): string {
@@ -24,7 +24,7 @@ export class AppController {
             <br/><code>Version: ${this.config.getVersion()}</code>`;
   }
 
-  @ApiOperation({ title: 'echo service for testing' })
+  @ApiOperation({ summary: 'echo service for testing' })
   @Allow()
   @All('echo')
   echo(@Req() req): Observable<any> {

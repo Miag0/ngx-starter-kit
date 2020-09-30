@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewEncapsulation, HostBinding } from '@angular/core';
-import { Input } from '@angular/core';
+import { Component, HostBinding, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { MenuItem, MenuService } from '@ngx-starter-kit/navigator';
 
 @Component({
   selector: 'ngx-sidenav-item',
   templateUrl: './sidenav-item.component.html',
   styleUrls: ['./sidenav-item.component.scss'],
+  // tslint:disable-next-line: use-component-view-encapsulation
   encapsulation: ViewEncapsulation.None,
 })
 export class SidenavItemComponent implements OnInit {
@@ -30,7 +30,8 @@ export class SidenavItemComponent implements OnInit {
     }
   }
 
-  // Receives the count of Sub Items and multiplies it with 48 (height of one SidenavItem) to set the height for animation.
+  // Receives the count of Sub Items and multiplies it with 48
+  // (height of one SidenavItem) to set the height for animation.
   getSubItemsHeight(): string {
     return this.getOpenSubItemsCount(this.item) * 48 + 'px';
   }
@@ -42,7 +43,7 @@ export class SidenavItemComponent implements OnInit {
     if (item.children && item.children.length > 0 && this.menuService.isOpen(item)) {
       count += item.children.length;
 
-      item.children.forEach(subItem => {
+      item.children.forEach((subItem) => {
         count += this.getOpenSubItemsCount(subItem);
       });
     }

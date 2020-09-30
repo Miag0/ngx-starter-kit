@@ -1,18 +1,18 @@
-import { AfterViewInit, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { SelectionChange, SelectionModel } from '@angular/cdk/collections';
+import { ComponentType } from '@angular/cdk/portal';
+import { AfterViewInit, Directive, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-
-import { EntityService } from './entity.service';
-import { Entity, EntityColumnDef } from './entity.model';
-import { concatMap, filter, map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { EntityFormComponent } from './entity-form.component';
-import { ComponentType } from '@angular/cdk/portal/typings/portal';
-import { SelectionChange, SelectionModel } from '@angular/cdk/collections';
 import { untilDestroy } from '@ngx-starter-kit/ngx-utils';
-import { parseISO } from 'date-fns/esm';
-
+import { parseISO } from 'date-fns';
+import { Observable } from 'rxjs';
+import { concatMap, filter, map } from 'rxjs/operators';
+import { EntityFormComponent } from './entity-form.component';
+import { Entity, EntityColumnDef } from './entity.model';
+import { EntityService } from './entity.service';
+@Directive()
+// tslint:disable-next-line: directive-class-suffix
 export abstract class EntitiesComponent<TEntity extends Entity, TService extends EntityService<TEntity>>
   implements OnInit, OnDestroy, AfterViewInit {
   dataSource = new MatTableDataSource<TEntity>([]);
@@ -56,10 +56,10 @@ export abstract class EntitiesComponent<TEntity extends Entity, TService extends
         .pipe(
           // tap(console.log),
           filter((sc: SelectionChange<TEntity>) => sc.added.length > 0),
-          filter(_ => this.selection.selected.length > this.maxSelectable),
-          untilDestroy(this),
+          filter((_) => this.selection.selected.length > this.maxSelectable),
+          untilDestroy(this)
         )
-        .subscribe(_ => this.selection.deselect(this.selection.selected.shift()));
+        .subscribe((_) => this.selection.deselect(this.selection.selected.shift()));
     }
 
     // fromEvent(this.filterRef.nativeElement, 'keyup')
@@ -86,14 +86,14 @@ export abstract class EntitiesComponent<TEntity extends Entity, TService extends
   }
 
   delete(item: TEntity) {
-    return this.entityService.delete(item.id).pipe(concatMap(_ => this.update()));
+    return this.entityService.delete(item.id).pipe(concatMap((_) => this.update()));
   }
 
   updateOrCreate(entity: TEntity, id: number) {
     if (id) {
-      return this.entityService.put(id, entity).pipe(concatMap(_ => this.update()));
+      return this.entityService.put(id, entity).pipe(concatMap((_) => this.update()));
     } else {
-      return this.entityService.post(entity).pipe(concatMap(_ => this.update()));
+      return this.entityService.post(entity).pipe(concatMap((_) => this.update()));
     }
   }
 
@@ -106,19 +106,19 @@ export abstract class EntitiesComponent<TEntity extends Entity, TService extends
 
   protected update() {
     return this.getData().pipe(
-      map(result => {
+      map((result) => {
         this.dataSource = new MatTableDataSource<TEntity>(result);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
         // return nothing as we don't need.
         // return result
-      }),
+      })
     );
   }
 
   /** Whether all filtered rows are selected. */
   isAllFilteredRowsSelected() {
-    return this.dataSource.filteredData.every(data => this.selection.isSelected(data));
+    return this.dataSource.filteredData.every((data) => this.selection.isSelected(data));
   }
 
   /** Whether the selection it totally matches the filtered rows. */
@@ -143,7 +143,7 @@ export abstract class EntitiesComponent<TEntity extends Entity, TService extends
     if (this.isMasterToggleChecked()) {
       this.selection.clear();
     } else {
-      this.dataSource.filteredData.forEach(data => this.selection.select(data));
+      this.dataSource.filteredData.forEach((data) => this.selection.select(data));
     }
   }
 
@@ -196,7 +196,9 @@ export abstract class EntitiesComponent<TEntity extends Entity, TService extends
   }
 
   protected stringToDate(date: string | number | Date): number | Date {
-    const isString = s => typeof s === 'string' || s instanceof String;
-    return isString(date) ? parseISO(date) : date;
+    function isString(x: any) {
+      return Object.prototype.toString.call(x) === '[object String]';
+    }
+    return isString(date) ? parseISO(date as string) : (date as number | Date);
   }
 }

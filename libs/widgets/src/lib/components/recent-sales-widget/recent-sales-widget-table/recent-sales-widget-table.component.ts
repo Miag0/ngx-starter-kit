@@ -6,7 +6,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { Observable } from 'rxjs/internal/Observable';
-import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
+import { ReplaySubject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { ListColumn } from '../../list/list-column.model';
 
@@ -38,7 +38,7 @@ export class RecentSalesWidgetTableComponent implements OnInit, AfterViewInit {
   }
 
   get visibleColumns() {
-    return this.columns.filter(column => column.visible).map(column => column.property);
+    return this.columns.filter((column) => column.visible).map((column) => column.property);
   }
 
   ngOnInit() {

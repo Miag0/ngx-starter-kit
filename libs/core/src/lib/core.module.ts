@@ -2,28 +2,22 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { APP_INITIALIZER, NgModule, Optional, SkipSelf } from '@angular/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { environment } from '@env/environment';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faGithub, faGoogle, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { FormlyModule } from '@ngx-formly/core';
 import { AuthModule } from '@ngx-starter-kit/auth';
-// import { OidcFlow, OidcModule, OidcOnLoad, OidcProvider } from '@ngx-starter-kit/oidc';
 import { MenuState, NavigatorModule } from '@ngx-starter-kit/navigator';
 import { NgxsWebsocketPluginModule } from '@ngx-starter-kit/socketio-plugin';
-import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsFormPluginModule } from '@ngxs/form-plugin';
 import { NgxsRouterPluginModule, RouterStateSerializer } from '@ngxs/router-plugin';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { NgxsModule } from '@ngxs/store';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { defaultMenu } from './menu-data';
 import { AppConfigService } from './services/app-config.service';
 import { GoogleAnalyticsService } from './services/google-analytics.service';
-import { HammerConfig } from './services/hammer.config';
-import { InMemoryDataService } from './services/in-memory-data.service';
 import { WINDOW, _window } from './services/window.token';
 import { AppHandler } from './state/app.handler';
 import { AppState } from './state/app.state';
@@ -62,10 +56,6 @@ export function noop() {
       // FIXME:  https://github.com/ngxs/store/issues/902
       key: ['preference', 'app.installed', 'auth.isLoggedIn'],
     }),
-    NgxsReduxDevtoolsPluginModule.forRoot({
-      disabled: environment.production, // Set to true for prod mode
-      maxAge: 10,
-    }),
     NgxsFormPluginModule.forRoot(),
     NgxsWebsocketPluginModule.forRoot({
       url: environment.WS_EVENT_BUS_URL,
@@ -85,13 +75,7 @@ export function noop() {
     //   postLogoutRedirectUri: environment.baseUrl + 'home',
     // }),
     FormlyModule.forRoot(),
-    environment.envName === 'mock'
-      ? HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
-          passThruUnknownUrl: true,
-          delay: 1000,
-          // apiBase: 'api'
-        })
-      : [],
+    environment.plugins,
   ],
   providers: [
     GoogleAnalyticsService,
@@ -113,10 +97,6 @@ export function noop() {
       multi: true,
     },
     {
-      provide: HAMMER_GESTURE_CONFIG,
-      useClass: HammerConfig,
-    },
-    {
       provide: RouterStateSerializer,
       useClass: CustomRouterStateSerializer,
     },
@@ -132,7 +112,7 @@ export class CoreModule {
     // HINT: AppHandler is injected here to initialize it as Module Run Block,
     // APP_INITIALIZER is not an option when target to es2015
     // https://github.com/ngxs/store/issues/773
-    appHandler: AppHandler,
+    appHandler: AppHandler
   ) {
     /**
      * add icons that are needed during app boot up here.

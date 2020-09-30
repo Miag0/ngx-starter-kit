@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ChartData } from 'chart.js';
-import { Observable } from 'rxjs/internal/Observable';
-import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
-import { fadeOutAnimation } from '@ngx-starter-kit/animations';
+import { formatDistance } from 'date-fns';
+import { ReplaySubject, Observable } from 'rxjs';
 import { AdvancedPieChartWidgetOptions } from '../../components/advanced-pie-chart-widget/advanced-pie-chart-widget-options.interface';
 import { AudienceOverviewWidgetOptions } from '../../components/audience-overview-widget/audience-overview-widget-options.interface';
 import { BarChartWidgetOptions } from '../../components/bar-chart-widget/bar-chart-widget-options.interface';
@@ -14,9 +13,9 @@ import {
   RealtimeUsersWidgetPages,
 } from '../../components/realtime-users-widget/realtime-users-widget.interface';
 import { RecentSalesWidgetOptions } from '../../components/recent-sales-widget/recent-sales-widget-options.interface';
+// tslint:disable-next-line
 import { SalesSummaryWidgetOptions } from '../../components/sales-summary-widget/sales-summary-widget-options.interface';
 import { WizdashService } from './wizdash.service';
-import { formatDistance } from 'date-fns/esm';
 
 @Component({
   selector: 'ngx-wizdash',
@@ -132,7 +131,8 @@ export class WizdashComponent implements OnInit {
   }
 
   /**
-   * Everything implemented here is purely for Demo-Demonstration and can be removed and replaced with your implementation
+   * Everything implemented here is purely for Demo-Demonstration and
+   * can be removed and replaced with your implementation
    */
   ngOnInit() {
     this.salesData$ = this.wizdashService.getSales();
@@ -143,19 +143,19 @@ export class WizdashComponent implements OnInit {
     this.top5CategoriesData$ = this.wizdashService.getTop5Categories();
 
     // Audience Overview Widget
-    this.wizdashService.getAudienceOverviewUsers().subscribe(response => {
+    this.wizdashService.getAudienceOverviewUsers().subscribe((response) => {
       this.audienceOverviewOptions.push({
         label: 'Users',
         data: response,
       } as AudienceOverviewWidgetOptions);
     });
-    this.wizdashService.getAudienceOverviewSessions().subscribe(response => {
+    this.wizdashService.getAudienceOverviewSessions().subscribe((response) => {
       this.audienceOverviewOptions.push({
         label: 'Sessions',
         data: response,
       } as AudienceOverviewWidgetOptions);
     });
-    this.wizdashService.getAudienceOverviewBounceRate().subscribe(response => {
+    this.wizdashService.getAudienceOverviewBounceRate().subscribe((response) => {
       const property: AudienceOverviewWidgetOptions = {
         label: 'Bounce Rate',
         data: response,
@@ -168,7 +168,7 @@ export class WizdashComponent implements OnInit {
       this.audienceOverviewOptions.push(property);
     });
 
-    this.wizdashService.getAudienceOverviewSessionDuration().subscribe(response => {
+    this.wizdashService.getAudienceOverviewSessionDuration().subscribe((response) => {
       const property: AudienceOverviewWidgetOptions = {
         label: 'Session Duration',
         data: response,
@@ -219,9 +219,9 @@ export class WizdashComponent implements OnInit {
       }
 
       this.realtimeUsersPagesSubject.next(
-        demoPages.map(pages => {
+        demoPages.map((pages) => {
           return { page: pages } as RealtimeUsersWidgetPages;
-        }),
+        })
       );
     }
 
@@ -238,9 +238,9 @@ export class WizdashComponent implements OnInit {
       }
 
       this.realtimeUsersPagesSubject.next(
-        demoPages.map(pages => {
+        demoPages.map((pages) => {
           return { page: pages } as RealtimeUsersWidgetPages;
-        }),
+        })
       );
     }, 5000);
 

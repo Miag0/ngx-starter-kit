@@ -9,7 +9,7 @@ import { ROPCService } from './ropc.service';
 import { LoginComponent } from './components/login/login.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { fromPromise } from 'rxjs/internal/observable/fromPromise';
+import { from } from 'rxjs';
 
 @Injectable()
 export class AuthService {
@@ -25,16 +25,16 @@ export class AuthService {
     private router: Router,
     private dialog: MatDialog,
     private ropcService: ROPCService,
-    private oauthService: OAuthService,
+    private oauthService: OAuthService
   ) {
-    this.authMode$.subscribe(authMode => {
+    this.authMode$.subscribe((authMode) => {
       console.log(`Auth Mode Changed: ${this.authMode} => ${authMode}`);
       this.authMode = authMode;
     });
   }
 
   private monitorSessionActivities() {
-    this.monitorer = this.oauthService.events.subscribe(e => {
+    this.monitorer = this.oauthService.events.subscribe((e) => {
       switch (e.type) {
         case 'logout':
         case 'session_terminated':
@@ -100,16 +100,16 @@ export class AuthService {
       // for PasswordFlow or CodeFLow or HybridFlow
       this.refresher = this.oauthService.events
         .pipe(
-          tap(e => {
+          tap((e) => {
             console.log(`sumo: type: $e.type, `, e);
           }),
           filter((e: OAuthEvent) => e.type === 'token_expires'),
-          mergeMap(_ => fromPromise(this.oauthService.refreshToken())),
+          mergeMap((_) => from(this.oauthService.refreshToken())),
           catchError((error: HttpErrorResponse) => {
             console.log('Auto token refresh failed. Logging Out...', error.error);
             this.store.dispatch(new Logout());
             return throwError(error.error);
-          }),
+          })
         )
         .subscribe();
     }

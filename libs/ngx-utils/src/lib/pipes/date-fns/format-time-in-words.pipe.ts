@@ -1,11 +1,8 @@
-import { ChangeDetectorRef, OnDestroy, Pipe, PipeTransform } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
+import { ChangeDetectorRef, OnDestroy, Pipe, PipeTransform } from '@angular/core';
+import { differenceInMinutes, formatDistance, parseISO } from 'date-fns';
 import { interval, Observable, of } from 'rxjs';
 import { delayWhen, map, repeatWhen, takeWhile, tap } from 'rxjs/operators';
-
-import { differenceInMinutes, formatDistance } from 'date-fns/esm';
-import { parseISO } from 'date-fns/esm';
-
 const defaultConfig = { addSuffix: true };
 /**
  * impure pipe, which in general can lead to bad performance
@@ -53,12 +50,13 @@ export class FormatTimeInWordsPipe implements PipeTransform, OnDestroy {
       repeatWhen(notify => notify.pipe(delayWhen(() => interval(nextBackoff)))),
       takeWhile(_ => !this.isDestroyed),
       map(_ => formatDistance(this.stringToDate(date), new Date(), options)),
-      tap(_ => (nextBackoff = this.backoff(date))),
+      tap(_ => (nextBackoff = this.backoff(date)))
     );
   }
 
   private backoff(date: string | number | Date): number {
-    const minutesElapsed = Math.abs(differenceInMinutes(new Date(), this.stringToDate(date))); // this will always be positive
+    // this will always be positive
+    const minutesElapsed = Math.abs(differenceInMinutes(new Date(), this.stringToDate(date)));
     let backoffAmountInSeconds: number;
     if (minutesElapsed < 2) {
       backoffAmountInSeconds = 5;
@@ -73,7 +71,9 @@ export class FormatTimeInWordsPipe implements PipeTransform, OnDestroy {
   }
 
   private stringToDate(date: string | number | Date): number | Date {
-    const isString = s => typeof s === 'string' || s instanceof String;
-    return isString(date) ? parseISO(date) : date;
+    function isString(x: any) {
+      return Object.prototype.toString.call(x) === '[object String]';
+    }
+    return isString(date) ? parseISO(date as string) : (date as number | Date);
   }
 }

@@ -1,28 +1,26 @@
-KeyCloak Testing
-================
+# KeyCloak Testing
 
 Pre-configured KeyCloak OpenID Connect server for testing.
 
-* **Realm**: ngx
-* **Client ID**: ngxweb, ngxapi
-* **Accounts**:
-  * *ROLE_ADMIN*
+- **Realm**: ngx
+- **Client ID**: ngxweb, ngxapi
+- **Accounts**:
+  - _ROLE_ADMIN_
     1. ngxadmin : ngxadmin
-  * *ROLE_USER*
+  - _ROLE_USER_
     1. sumo: demo
     2. sumo1: demo
     3. sumo2: demo
     4. sumo3: demo
 
-
 ### Configure SPA Client
 
-> set issuer, clientId in apps/webapp/src/environments/environment.ts 
+> set issuer, clientId in apps/webapp/src/environments/environment.ts
 
 ```json
   auth: {
     clientId: 'cockpit',
-    issuer: 'http://localhost:9080/auth/realms/kubernetes'
+    issuer: 'http://localhost:8080/auth/realms/kubernetes'
   }
 ```
 
@@ -46,17 +44,17 @@ docker-compose exec keycloak sh
 docker cp <containerId>:/tmp/sumo  /Developer/Work/SPA/ngx-starter-ki/.deploy/keycloak
 ```
 
-
 ### Use
 
-http://localhost:9080/
+http://localhost:8080/
+
 > admin: admin123
 
 ### Test
 
 ```bash
 # Environment variable. change as per your server setup
-OIDC_BASE_URL=http://localhost:9080/auth/realms/ngx
+OIDC_BASE_URL=http://localhost:8080/auth/realms/ngx
 CLIENT_ID=kube-tenant
 
 USERNAME=sumo
@@ -89,22 +87,23 @@ echo $refresh_token
 curl -X POST $OIDC_BASE_URL/protocol/openid-connect/userinfo \
  -H "Content-Type: application/x-www-form-urlencoded" \
  -d "access_token=$access_token" | jq .
- 
+
 # Logout
 curl -X POST  $OIDC_BASE_URL/protocol/openid-connect/logout \
  -H "Content-Type: application/x-www-form-urlencoded" \
  -d client_id=$CLIENT_ID \
  -d "refresh_token=$refresh_token" | jq .
- ```
+```
 
 #### Example Access Token
+
 ```json
 {
   "jti": "726d3a1b-4d1c-44e0-b645-f6c8b38ed83f",
   "exp": 1529217929,
   "nbf": 0,
   "iat": 1529217629,
-  "iss": "http://localhost:9080/auth/realms/kubernetes",
+  "iss": "http://localhost:8080/auth/realms/kubernetes",
   "aud": "kube-tenant",
   "sub": "8602c118-9778-4eda-98a0-673382934688",
   "typ": "Bearer",
@@ -112,27 +111,16 @@ curl -X POST  $OIDC_BASE_URL/protocol/openid-connect/logout \
   "auth_time": 0,
   "session_state": "698b3e16-4f53-46b4-aa7f-ddc05c2f9ae8",
   "acr": "1",
-  "allowed-origins": [
-    "http://localhost:4200"
-  ],
+  "allowed-origins": ["http://localhost:4200"],
   "realm_access": {
-    "roles": [
-      "offline_access",
-      "uma_authorization"
-    ]
+    "roles": ["offline_access", "uma_authorization"]
   },
   "resource_access": {
     "kube-tenant": {
-      "roles": [
-        "ROLE_USER"
-      ]
+      "roles": ["ROLE_USER"]
     },
     "account": {
-      "roles": [
-        "manage-account",
-        "manage-account-links",
-        "view-profile"
-      ]
+      "roles": ["manage-account", "manage-account-links", "view-profile"]
     }
   },
   "scope": "openid profile email",
@@ -145,8 +133,8 @@ curl -X POST  $OIDC_BASE_URL/protocol/openid-connect/logout \
 }
 ```
 
-
 ### References
-* Kubernetes Day 2 Operations: AuthN/AuthZ with OIDC and a Little Help From Keycloak
-  * https://medium.com/@mrbobbytables/kubernetes-day-2-operations-authn-authz-with-oidc-and-a-little-help-from-keycloak-de4ea1bdbbe
-* https://github.com/making/k8s-keycloak-oidc-helper/blob/master/k8s-keycloak-oidc-helper.sh
+
+- Kubernetes Day 2 Operations: AuthN/AuthZ with OIDC and a Little Help From Keycloak
+  - https://medium.com/@mrbobbytables/kubernetes-day-2-operations-authn-authz-with-oidc-and-a-little-help-from-keycloak-de4ea1bdbbe
+- https://github.com/making/k8s-keycloak-oidc-helper/blob/master/k8s-keycloak-oidc-helper.sh

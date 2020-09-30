@@ -5,10 +5,11 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ElementRef, OnChanges, OnDestroy, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
+import { ElementRef, OnChanges, OnDestroy, OnInit, SimpleChange, SimpleChanges, Directive } from '@angular/core';
 import { MediaMarshaller, MediaQuerySubscriber, StyleBuilder, StyleDefinition, StyleUtils } from '@angular/flex-layout';
 import { buildLayoutCSS } from './layout-validator';
 
+@Directive()
 export abstract class BaseDirective implements OnInit, OnDestroy, OnChanges {
   /** MediaQuery Activation Tracker */
   protected mqActivation?: any; // ResponsiveActivation;
@@ -60,7 +61,7 @@ export abstract class BaseDirective implements OnInit, OnDestroy, OnChanges {
     protected mediaMarshaller: MediaMarshaller,
     protected elementRef: ElementRef,
     protected styler: StyleUtils,
-    protected styleBuilder: StyleBuilder,
+    protected styleBuilder: StyleBuilder
   ) {}
 
   /**
@@ -184,7 +185,7 @@ export abstract class BaseDirective implements OnInit, OnDestroy, OnChanges {
   protected _applyStyleToElement(
     style: StyleDefinition,
     value?: string | number,
-    element: HTMLElement = this.nativeElement,
+    element: HTMLElement = this.nativeElement
   ) {
     this.styler.applyStyleToElement(element, style, value);
   }

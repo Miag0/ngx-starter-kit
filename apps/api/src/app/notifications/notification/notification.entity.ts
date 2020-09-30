@@ -1,13 +1,15 @@
+import { ApiProperty } from '@nestjs/swagger';
+import { Exclude } from 'class-transformer';
+import { MaxLength, MinLength } from 'class-validator';
 import { Column, CreateDateColumn, Entity, Index, UpdateDateColumn, VersionColumn } from 'typeorm';
 import { Base } from '../../core/entities/base';
-import { ApiModelProperty } from '@nestjs/swagger';
-import { Exclude } from 'class-transformer';
 
 export enum TargetType {
   ALL = 'all',
   USER = 'user',
   TOPIC = 'topic',
 }
+
 export enum NotificationColor {
   WARN = 'warn',
   ACCENT = 'accent',
@@ -23,53 +25,51 @@ export enum NotificationIcon {
   CODE = 'code',
 }
 
+// TODO : use  CLI plugin https://docs.nestjs.com/recipes/swagger#plugin
 @Entity('notification')
 export class Notification extends Base {
-  @ApiModelProperty({ type: String, minLength: 10, maxLength: 100 })
+  @MinLength(10)
+  @MaxLength(100)
   @Column()
   title: string;
 
-  @ApiModelProperty({ type: String, minLength: 10, maxLength: 100 })
+  @MinLength(10)
+  @MaxLength(100)
   @Column()
   body: string;
 
-  @ApiModelProperty({ type: String, minLength: 3, maxLength: 20 })
+  @MinLength(3)
+  @MaxLength(20)
   @Index()
   @Column()
   target: string;
 
-  @ApiModelProperty({ type: String, enum: TargetType })
   @Column({ enum: ['all', 'user', 'topic'] })
   targetType: string;
 
-  @ApiModelProperty({ type: String, enum: NotificationIcon, default: NotificationIcon.NOTIFICATIONS })
   @Column({ enum: NotificationIcon, default: NotificationIcon.NOTIFICATIONS })
-  icon?: NotificationIcon;
+  icon?: NotificationIcon = NotificationIcon.NOTIFICATIONS;
 
-  @ApiModelProperty({ type: String, enum: NotificationColor, default: NotificationColor.PRIMARY })
   @Column({ enum: ['warn', 'accent', 'primary'], default: NotificationColor.PRIMARY })
-  color?: NotificationColor;
+  color?: NotificationColor = NotificationColor.PRIMARY;
 
-  @ApiModelProperty({ type: Boolean, default: false })
   @Index()
-  @Column({ default: false })
-  read?: boolean;
+  @Column({ default: false, type: 'boolean' })
+  read? = false;
 
-  @ApiModelProperty({ type: Boolean, default: false })
   @Index()
-  @Column({ default: false })
-  native?: boolean;
+  @Column({ default: false, type: 'boolean' })
+  native? = false;
 
-  @ApiModelProperty({ type: Boolean, default: true })
   @Index()
-  @Column({ default: true })
-  isActive?: boolean;
+  @Column({ default: true, type: 'boolean' })
+  isActive? = true;
 
-  @ApiModelProperty({ type: 'string', format: 'date-time', example: '2018-11-21T06:20:32.232Z' })
+  @ApiProperty({ type: 'string', format: 'date-time', example: '2018-11-21T06:20:32.232Z' })
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt?: Date;
 
-  @ApiModelProperty({ type: 'string', format: 'date-time', example: '2018-11-21T06:20:32.232Z' })
+  @ApiProperty({ type: 'string', format: 'date-time', example: '2018-11-21T06:20:32.232Z' })
   @UpdateDateColumn({ type: 'timestamptz' })
   updatedAt?: Date;
 

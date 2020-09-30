@@ -1,12 +1,14 @@
 # API Testing
 
-### Database
+## Database
 
 ```bash
 psql -h <host> -p <port> -u <database>
 psql -h <host> -p <port> -U <username> -W <password> <database>
 
 ```
+
+### TEST
 
 ### REST API
 
@@ -91,6 +93,7 @@ curl -v -X POST \
 ```bash
 # OIDC_ISSUER_URL=https://keycloak.traefik.k8s/auth/realms/ngx
 OIDC_ISSUER_URL=https://keycloak.kashmora.com/auth/realms/ngx
+OIDC_ISSUER_URL=http://localhost:8080/auth/realms/ngx
 OIDC_CLIENT_ID=ngxapi
 
 USERNAME=sumo3

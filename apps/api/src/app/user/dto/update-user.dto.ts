@@ -1,21 +1,5 @@
-import { IsEmail, IsNotEmpty, IsString, Validate } from 'class-validator';
-import { ApiModelProperty } from '@nestjs/swagger';
-import { IsEmailUnique } from '../validator/is-email-unique.validator';
+import { CreateUserDto } from './create-user.dto';
+import { OmitType, PartialType } from '@nestjs/swagger';
 
-export class UpdateUserDto {
-  @ApiModelProperty({ type: String })
-  @IsString()
-  @IsNotEmpty()
-  readonly firstName: string;
-
-  @ApiModelProperty({ type: String })
-  @IsString()
-  @IsNotEmpty()
-  readonly lastName: string;
-
-  @ApiModelProperty({ type: String, minLength: 10, maxLength: 100 })
-  @IsEmail()
-  @IsNotEmpty()
-  @Validate(IsEmailUnique)
-  readonly email: string;
-}
+// Ref: https://trilon.io/blog/introducing-mapped-types-for-nestjs
+export class UpdateUserDto extends PartialType(OmitType(CreateUserDto, ['username'])) {}

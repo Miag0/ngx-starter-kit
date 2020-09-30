@@ -121,9 +121,14 @@
     },
     "models": {
       "tags": ["utils"]
-    },
-    "oidc": {
-      "tags": ["public-module"]
+    }
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/workspace/tasks-runners/default",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e", "compodoc"]
+      }
     }
   }
 }
